@@ -5,7 +5,7 @@ from tkinter import ttk
 import os
 import sqlite3
 
-# Diccionario de temas y palabras
+# Dictionary
 themes = {
     "Frutas": [
         "manzana", "platano", "naranja", "fresa", "uva",
@@ -147,11 +147,14 @@ class HangmanGame:
         self.letters_frame.pack(pady=10)
 
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        columns = 13
+
         for letter in alphabet:
             button = ttk.Button(self.letters_frame, text=letter, width=4, command=lambda l=letter: self.guess_letter(l))
-            button.grid(row=alphabet.index(letter) // 7, column=alphabet.index(letter) % 7)
+            button.grid(row=alphabet.index(letter) // columns, column=alphabet.index(letter) % columns)
 
-        self.used_letters_label = tk.Label(self.root, text="Letras usadas: ", font=("Arial", 14), fg="#00474F", bg="#C3E4E7")
+        self.used_letters_label = tk.Label(self.root, text="Letras usadas: ", font=("Arial", 14), fg="#00474F",
+                                           bg="#C3E4E7")
         self.used_letters_label.pack(pady=10)
 
     def guess_letter(self, letter):
