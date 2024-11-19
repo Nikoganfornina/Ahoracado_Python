@@ -181,3 +181,48 @@ class HangmanGame:
                 update_player_stats(self.player_name, win=False)
                 messagebox.showinfo("Perdiste", f"Te quedaste sin vidas. La palabra era: {self.word.upper()}.")
                 self.root.destroy()
+
+class StartWindow:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Ahorcado By Niko")
+        self.root.geometry("1000x1000")
+        self.root.configure(bg="#C3E4E7")
+
+        self.tittle_label = tk.Label(self.root, text="Ahorcado By Niko", font=("Arial", 24), fg="#00474F", bg="#C3E4E7")
+        self.tittle_label.pack(pady=20)
+
+        self.img = tk.PhotoImage(file="Imagen.png")
+        self.image_label = tk.Label(self.root, image=self.img, bg="#C3E4E7")
+        self.image_label.pack(pady=10)
+
+        self.name_label = tk.Label(self.root, text="Ingresa tu nombre:", font=("Arial", 18), fg="#00474F", bg="#C3E4E7")
+        self.name_label.pack(pady=10)
+
+        self.name_entry = ttk.Entry(self.root, font=("Arial", 18))
+        self.name_entry.pack(pady=10)
+
+        self.start_button = ttk.Button(self.root, text="Empezar", command=self.start_game)
+        self.start_button.pack(pady=20)
+
+        self.stats_button = ttk.Button(self.root, text="Estadísticas", command=show_stats)
+        self.stats_button.pack(pady=10)
+
+        self.quit_button = ttk.Button(self.root, text="Salir", command=self.root.quit)
+        self.quit_button.pack(pady=10)
+
+    def start_game(self):
+        player_name = self.name_entry.get().strip()
+        if not player_name:
+            messagebox.showwarning("Advertencia", "Por favor, ingresa tu nombre.")
+            return
+
+        self.root.destroy()
+        new_root = tk.Tk()
+        HangmanGame(new_root, player_name)
+
+# Iniciar la aplicación
+create_db()
+root = tk.Tk()
+StartWindow(root)
+root.mainloop()
